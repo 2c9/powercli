@@ -3,7 +3,7 @@ $vcsa = 'vcsacluster.ouiit.local'
 Connect-VIServer -Server $vcsa
 
 $role = Get-VIRole "WSR39"
-$competitors = 'user1', 'user2', 'user3', 'user4', 'userX'
+$competitors = 'user1','user2','user3','user4','user5','user6'
 $datacenters = Get-Datacenter | Where-Object { $_.Name -match "dc_(linux|windows)_0[1-3]" } | Sort-Object -Property Name
 
 ForEach( $datacenter in $datacenters ){
@@ -19,7 +19,7 @@ ForEach( $datacenter in $datacenters ){
 
     # Select a competitor
     $competitor = $competitors | Out-GridView -Title "Select Kukusik for $($datacenter.Name)" -OutputMode Single;
-    $competitors.Remove($competitor)
+    #$competitors.Remove($competitor)
 
     # Set permission
     $np = New-VIPermission -Entity $datacenter.Name -Principal "CLOUD\$($competitor)" -Role $role -Propagate:$true
